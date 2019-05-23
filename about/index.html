@@ -1,0 +1,339 @@
+<!doctype html><html lang="en" class="no-js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="lang:clipboard.copy" content="Copy to clipboard"><meta name="lang:clipboard.copied" content="Copied to clipboard"><meta name="lang:search.language" content="en"><meta name="lang:search.pipeline.stopwords" content="True"><meta name="lang:search.pipeline.trimmer" content="True"><meta name="lang:search.result.none" content="No matching documents"><meta name="lang:search.result.one" content="1 matching document"><meta name="lang:search.result.other" content="# matching documents"><meta name="lang:search.tokenizer" content="[\s\-]+"><link rel="shortcut icon" href="../assets/images/favicon.png"><meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.3.0"><title>Pagerank - Processing of Web Crawling</title><link rel="stylesheet" href="../assets/stylesheets/application.4031d38b.css"><script src="../assets/javascripts/modernizr.74668098.js"></script><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=swap"><style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style><link rel="stylesheet" href="../assets/fonts/material-icons.css"></head><body dir="ltr"><svg class="md-svg"><defs></defs></svg> <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off"> <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off"> <label class="md-overlay" data-md-component="overlay" for="__drawer"></label><a href="#introduction" tabindex="1" class="md-skip">Skip to content </a><header class="md-header" data-md-component="header"><nav class="md-header-nav md-grid"><div class="md-flex"><div class="md-flex__cell md-flex__cell--shrink"><a href=".." title="Processing of Web Crawling" class="md-header-nav__button md-logo"><i class="md-icon"></i></a></div><div class="md-flex__cell md-flex__cell--shrink"><label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label></div><div class="md-flex__cell md-flex__cell--stretch"><div class="md-flex__ellipsis md-header-nav__title" data-md-component="title"><span class="md-header-nav__topic">Processing of Web Crawling</span><span class="md-header-nav__topic">Pagerank</span></div></div><div class="md-flex__cell md-flex__cell--shrink"><label class="md-icon md-icon--search md-header-nav__button" for="__search"></label><div class="md-search" data-md-component="search" role="dialog"><label class="md-search__overlay" for="__search"></label><div class="md-search__inner" role="search"><form class="md-search__form" name="search"><input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active"> <label class="md-icon md-search__icon" for="__search"></label> <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">&#xE5CD;</button></form><div class="md-search__output"><div class="md-search__scrollwrap" data-md-scrollfix><div class="md-search-result" data-md-component="result"><div class="md-search-result__meta">Type to start searching</div><ol class="md-search-result__list"></ol></div></div></div></div></div></div></div></nav></header><div class="md-container"><main class="md-main"><div class="md-main__inner md-grid" data-md-component="container"><div class="md-sidebar md-sidebar--primary" data-md-component="navigation"><div class="md-sidebar__scrollwrap"><div class="md-sidebar__inner"><nav class="md-nav md-nav--primary" data-md-level="0"><label class="md-nav__title md-nav__title--site" for="__drawer"><a href=".." title="Processing of Web Crawling" class="md-nav__button md-logo"><i class="md-icon"></i></a>Processing of Web Crawling</label><ul class="md-nav__list" data-md-scrollfix><li class="md-nav__item"><a href=".." title="Home" class="md-nav__link">Home</a></li><li class="md-nav__item"><a href="../clustering/" title="Clustering" class="md-nav__link">Clustering</a></li><li class="md-nav__item md-nav__item--active"><input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc"><label class="md-nav__link md-nav__link--active" for="__toc">Pagerank</label><a href="./" title="Pagerank" class="md-nav__link md-nav__link--active">Pagerank</a><nav class="md-nav md-nav--secondary"><label class="md-nav__title" for="__toc">Table of contents</label><ul class="md-nav__list" data-md-scrollfix><li class="md-nav__item"><a href="#step-1-crawling" title="Step 1. Crawling" class="md-nav__link">Step 1. Crawling</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#apa-itu-web-crawling" title="Apa itu web crawling ?" class="md-nav__link">Apa itu web crawling ?</a></li><li class="md-nav__item"><a href="#apa-yang-akan-dilakukan" title="Apa yang akan dilakukan ?" class="md-nav__link">Apa yang akan dilakukan ?</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#install-library-yang-digunakan" title="Install library yang digunakan" class="md-nav__link">Install library yang digunakan</a></li><li class="md-nav__item"><a href="#menentukan-root-page" title="Menentukan root page" class="md-nav__link">Menentukan root page</a></li><li class="md-nav__item"><a href="#menentukan-link-yang-akan-dicrawl" title="Menentukan link yang akan dicrawl" class="md-nav__link">Menentukan link yang akan dicrawl</a></li><li class="md-nav__item"><a href="#looping-hingga-melakukan-crawling-pada-kedalaman-tertentu" title="Looping hingga melakukan crawling pada kedalaman tertentu" class="md-nav__link">Looping hingga melakukan crawling pada kedalaman tertentu</a></li><li class="md-nav__item"><a href="#full-code" title="Full Code" class="md-nav__link">Full Code</a></li><li class="md-nav__item"><a href="#hasil" title="Hasil" class="md-nav__link">Hasil</a></li></ul></nav></li></ul></nav></li><li class="md-nav__item"><a href="#step-2-graph-processing" title="Step 2. Graph Processing" class="md-nav__link">Step 2. Graph Processing</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#apa-itu-graph" title="Apa itu graph ?" class="md-nav__link">Apa itu graph ?</a></li><li class="md-nav__item"><a href="#apa-manfaat-dari-graph" title="Apa manfaat dari graph ?" class="md-nav__link">Apa manfaat dari graph ?</a></li><li class="md-nav__item"><a href="#apa-yang-akan-dilakukan_1" title="Apa yang akan dilakukan ?" class="md-nav__link">Apa yang akan dilakukan ?</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#install-library-yang-digunakan_1" title="Install library yang digunakan" class="md-nav__link">Install library yang digunakan</a></li><li class="md-nav__item"><a href="#menentukan-node-dan-edge" title="Menentukan node dan edge" class="md-nav__link">Menentukan node dan edge</a></li><li class="md-nav__item"><a href="#membangun-graph" title="Membangun graph" class="md-nav__link">Membangun graph</a></li><li class="md-nav__item"><a href="#full-code_1" title="Full Code" class="md-nav__link">Full Code</a></li><li class="md-nav__item"><a href="#hasil_1" title="Hasil" class="md-nav__link">Hasil</a></li></ul></nav></li></ul></nav></li><li class="md-nav__item"><a href="#step-3-page-rank" title="Step 3. Page Rank" class="md-nav__link">Step 3. Page Rank</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#apa-itu-page-rank" title="Apa itu page rank ?" class="md-nav__link">Apa itu page rank ?</a></li><li class="md-nav__item"><a href="#apa-manfaat-dari-page-rank" title="Apa manfaat dari page rank ?" class="md-nav__link">Apa manfaat dari page rank ?</a></li><li class="md-nav__item"><a href="#apa-yang-akan-dilakukan_2" title="Apa yang akan dilakukan ?" class="md-nav__link">Apa yang akan dilakukan ?</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#menentukan-page-rank" title="Menentukan page rank" class="md-nav__link">Menentukan page rank</a></li><li class="md-nav__item"><a href="#full-code_2" title="Full Code" class="md-nav__link">Full Code</a></li><li class="md-nav__item"><a href="#hasil_2" title="Hasil" class="md-nav__link">Hasil</a></li></ul></nav></li></ul></nav></li><li class="md-nav__item"><a href="#conclusion" title="Conclusion" class="md-nav__link">Conclusion</a></li><li class="md-nav__item"><a href="#references" title="References" class="md-nav__link">References</a></li></ul></nav></li></ul></nav></div></div></div><div class="md-sidebar md-sidebar--secondary" data-md-component="toc"><div class="md-sidebar__scrollwrap"><div class="md-sidebar__inner"><nav class="md-nav md-nav--secondary"><label class="md-nav__title" for="__toc">Table of contents</label><ul class="md-nav__list" data-md-scrollfix><li class="md-nav__item"><a href="#step-1-crawling" title="Step 1. Crawling" class="md-nav__link">Step 1. Crawling</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#apa-itu-web-crawling" title="Apa itu web crawling ?" class="md-nav__link">Apa itu web crawling ?</a></li><li class="md-nav__item"><a href="#apa-yang-akan-dilakukan" title="Apa yang akan dilakukan ?" class="md-nav__link">Apa yang akan dilakukan ?</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#install-library-yang-digunakan" title="Install library yang digunakan" class="md-nav__link">Install library yang digunakan</a></li><li class="md-nav__item"><a href="#menentukan-root-page" title="Menentukan root page" class="md-nav__link">Menentukan root page</a></li><li class="md-nav__item"><a href="#menentukan-link-yang-akan-dicrawl" title="Menentukan link yang akan dicrawl" class="md-nav__link">Menentukan link yang akan dicrawl</a></li><li class="md-nav__item"><a href="#looping-hingga-melakukan-crawling-pada-kedalaman-tertentu" title="Looping hingga melakukan crawling pada kedalaman tertentu" class="md-nav__link">Looping hingga melakukan crawling pada kedalaman tertentu</a></li><li class="md-nav__item"><a href="#full-code" title="Full Code" class="md-nav__link">Full Code</a></li><li class="md-nav__item"><a href="#hasil" title="Hasil" class="md-nav__link">Hasil</a></li></ul></nav></li></ul></nav></li><li class="md-nav__item"><a href="#step-2-graph-processing" title="Step 2. Graph Processing" class="md-nav__link">Step 2. Graph Processing</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#apa-itu-graph" title="Apa itu graph ?" class="md-nav__link">Apa itu graph ?</a></li><li class="md-nav__item"><a href="#apa-manfaat-dari-graph" title="Apa manfaat dari graph ?" class="md-nav__link">Apa manfaat dari graph ?</a></li><li class="md-nav__item"><a href="#apa-yang-akan-dilakukan_1" title="Apa yang akan dilakukan ?" class="md-nav__link">Apa yang akan dilakukan ?</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#install-library-yang-digunakan_1" title="Install library yang digunakan" class="md-nav__link">Install library yang digunakan</a></li><li class="md-nav__item"><a href="#menentukan-node-dan-edge" title="Menentukan node dan edge" class="md-nav__link">Menentukan node dan edge</a></li><li class="md-nav__item"><a href="#membangun-graph" title="Membangun graph" class="md-nav__link">Membangun graph</a></li><li class="md-nav__item"><a href="#full-code_1" title="Full Code" class="md-nav__link">Full Code</a></li><li class="md-nav__item"><a href="#hasil_1" title="Hasil" class="md-nav__link">Hasil</a></li></ul></nav></li></ul></nav></li><li class="md-nav__item"><a href="#step-3-page-rank" title="Step 3. Page Rank" class="md-nav__link">Step 3. Page Rank</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#apa-itu-page-rank" title="Apa itu page rank ?" class="md-nav__link">Apa itu page rank ?</a></li><li class="md-nav__item"><a href="#apa-manfaat-dari-page-rank" title="Apa manfaat dari page rank ?" class="md-nav__link">Apa manfaat dari page rank ?</a></li><li class="md-nav__item"><a href="#apa-yang-akan-dilakukan_2" title="Apa yang akan dilakukan ?" class="md-nav__link">Apa yang akan dilakukan ?</a><nav class="md-nav"><ul class="md-nav__list"><li class="md-nav__item"><a href="#menentukan-page-rank" title="Menentukan page rank" class="md-nav__link">Menentukan page rank</a></li><li class="md-nav__item"><a href="#full-code_2" title="Full Code" class="md-nav__link">Full Code</a></li><li class="md-nav__item"><a href="#hasil_2" title="Hasil" class="md-nav__link">Hasil</a></li></ul></nav></li></ul></nav></li><li class="md-nav__item"><a href="#conclusion" title="Conclusion" class="md-nav__link">Conclusion</a></li><li class="md-nav__item"><a href="#references" title="References" class="md-nav__link">References</a></li></ul></nav></div></div></div><div class="md-content"><article class="md-content__inner md-typeset"><h1 id="introduction">Introduction</h1>
+<p>Pagerank merupakan suatu algoritma yang bertujuan untuk menentukan kepopuleran salah satu situs. Pagerank merupakan salah satu layanan yang disediakan oleh Google. Pagerank disediakan oleh Mesin Pencari Google dan dibuat oleh salah satu ceo dan pendiri google yaitu <strong>Sergey Brin Dan Larry Page</strong>.</p>
+<p>Pagerank berfungsi menentukan situs web mana yang lebih penting atau populer. Semakin tinggi pagerank yang dimiliki sebuah halaman web maka semakin populer halaman web tersebut, karena dengan pagerank yang tinggi yang milikinya itu berarti bahwa situs web tersebut banyak ditautkan oleh situs web lain.</p>
+<p>Untuk mendapatkan situs yang populer dapat diketahui dengan mendapatkan jalur sitasi dari situs lain. Hal ini dapat dilakukan dengan salah satu cara yakni melakukan proses <em>crawling</em> pada situs dan mendapatkan data berupa <em>link</em> yang terdapat pada situs tersebut. Selanjutnya membuat jalur graf untuk mengetahui situs mana saja yang paling banyak disitasi. Untuk mengetahui populer tidaknya suatu situs dapat diurutkan berdasarkan nilai <em>pagerank</em> dengan inputan graf yang telah dibuat.</p>
+<h2 id="step-1-crawling">Step 1. Crawling</h2>
+<h3 id="apa-itu-web-crawling">Apa itu web crawling ?</h3>
+<p><em>Web Crawler</em> merupakan suatu program atau <em>Script</em> otomatis yang relatif simpel, menggunakan sebuah metode tertentu untuk melakukan <em>scan</em> atau <em>crawl</em> pada halaman internet untuk mendapatkan indek dari data yang dicari. Nama lain dari <em>Web Crawler</em> adalah <em>Web Spider</em>, <em>Web Robot</em>, <em>Bot</em>, <em>Crawl</em> dan <em>Automatic Indexer</em>. </p>
+<p>Untuk penjelasan tentang <em>web crawling</em> dapat teman-teman baca pada postingan sebelumnya <a href="../clustering/">disini</a>.</p>
+<h3 id="apa-yang-akan-dilakukan">Apa yang akan dilakukan ?</h3>
+<h4 id="install-library-yang-digunakan">Install library yang digunakan</h4>
+<pre><code class="python">import requests
+from bs4 import BeautifulSoup
+</code></pre>
+
+<p><code>BeautifulSoup</code> digunakan untuk dapat mengakses data html dan xml, sedangkan <code>requests</code> digunakan untuk dapat mengakses halaman web.</p>
+<h4 id="menentukan-root-page">Menentukan root page</h4>
+<p>Root page merupakan halaman web berupa berita yang akan menjadi <em>root</em> atau akar atau <em>base</em> <em>link</em> yang akan di <em>crawling</em>. Berita yang akan digunakan adalah <code>https://www.suara.com/news/2019/05/22/190121/kapolres-jakpus-minta-polisi-bertahan-pendemo-22-mei-terus-lempar-batu</code> </p>
+<h4 id="menentukan-link-yang-akan-dicrawl">Menentukan link yang akan dicrawl</h4>
+<ul>
+<li>Untuk mendapatkan <em>link</em> yang berelasi dengan berita, <em>content</em> yang akan di crawling adalah pada bagian <code>Berita Terkait</code>.</li>
+<li>Sama seperti postingan sebelumnya, untuk mendapatkan <em>tag html</em> <code>Berita Terkait</code> yang dilakukan adalah melakukan <code>inspect element</code>.</li>
+<li><code>inspect element</code> dapat dilakukan dengan cara : pada halaman berita, <code>klik kanan &gt;&gt; inspect</code> maka panel <code>inspect element</code> akan muncul seperti gambar dibawah. Atau menekan <code>Ctrl+Shift+I</code>.</li>
+<li>Selanjutnya cari <em>tag html</em> yang memuat <em>link</em> artikel pada <code>Berita Terkait</code>, pada kasus ini <em>tag html</em> yang memuat link tersebut terletak di <code>&lt;a href="https://www.suara.com/news/2019/05/23/131313/janes-sosok-inspiratif-di-balik-kerusuhan-22-mei-pungut-sampah-pendemo" class="ellipsis3"&gt;Janes, Sosok Inspiratif di Balik Kerusuhan 22 Mei, Pungut Sampah Pendemo&lt;/a&gt;</code>.</li>
+</ul>
+<p><img alt="1558540219759" src="../images/1558540219759.png" /></p>
+<p>Sehingga untuk melakukan crawling pada artikel tersebut, diperoleh code seperti berikut :</p>
+<pre><code class="python">req = requests.get(url)
+soup = BeautifulSoup(req.text, 'html.parser')
+news_links = soup.find_all('a',{'class':'ellipsis3'}, href=True)
+</code></pre>
+
+<h4 id="looping-hingga-melakukan-crawling-pada-kedalaman-tertentu">Looping hingga melakukan <em>crawling</em> pada kedalaman tertentu</h4>
+<p><img alt="tree" src="../images/tree.png" /></p>
+<p>Menginisialisasi kedalaman digunakan sebagai suatu kondisi agar looping berhenti, hal ini juga dapat digunakan untuk membatasi banyaknya <em>link</em> yang akan di <em>crawling</em>.</p>
+<h4 id="full-code">Full Code</h4>
+<pre><code class="python">import requests
+from bs4 import BeautifulSoup
+
+def getLinks():
+
+    url = &quot;https://www.suara.com/news/2019/05/22/190121/kapolres-jakpus-minta-polisi-bertahan-pendemo-22-mei-terus-lempar-batu&quot;
+    listUrl.append(url)
+    listUrl.append(&quot;depth&quot;)
+
+    count_depth = 3
+    depth = 1
+    nav = 0
+
+    cek = True
+    while cek == True :
+        if listUrl[nav] == &quot;depth&quot; :
+            listUrl.append(&quot;depth&quot;)
+            depth+=1
+            nav+=1
+
+        if depth &gt; count_depth:
+            cek = False
+
+        else :
+            url = listUrl[nav]
+            req = requests.get(url)
+            soup = BeautifulSoup(req.text, 'html.parser')
+            news_links = soup.find_all('a',{'class':'ellipsis3'}, href=True)
+            for link in news_links:
+                listUrl.append(link['href'])
+            nav+=1
+
+if __name__== &quot;__main__&quot;:
+    listUrl = []
+
+    links = getLinks()
+</code></pre>
+
+<h4 id="hasil">Hasil</h4>
+<p><img alt="1558540608569" src="../images/1558540608569.png" /></p>
+<h2 id="step-2-graph-processing">Step 2. Graph Processing</h2>
+<h3 id="apa-itu-graph">Apa itu graph ?</h3>
+<p><strong>Graph atau Graf</strong> adalah kumpulan noktah (simpul) di dalam bidang dua dimensi yang dihubungkan dengan sekumpulan garis (sisi). <em>Graph</em> dapat digunakan untuk merepresentasikan objek-objek diskrit dan hubungan antara objek-objek tersebut. Representasi visual dari<em>graph</em> adalah dengan menyatakan objek sebagai noktah, bulatan atau titik (Vertex), sedangkan hubungan antara objek dinyatakan dengan garis (Edge).</p>
+<blockquote>
+<p>G = (V, E)</p>
+</blockquote>
+<p>Dimana :</p>
+<p>G = Graph</p>
+<p>V = Simpul atau Vertex, atau Node, atau Titik</p>
+<p>E = Busur atau Edge, atau arc</p>
+<p>V adalah himpunan verteks dan E adalah himpunan sisi yang terdefinisi antara pasangan-pasangan verteks. Sebuah sisi antara verteks x dan y ditulis {x,y}. Suatu graph H = (V1, E1) disebut subgraph dari graph G jika V1 adalah himpunan bagian dari V dan E1 himpunan bagian dari E. </p>
+<p>Cara pendefinisian lain untuk graph adalah dengan menggunakan himpunan keterhubungan langsung Vx. Pada setiap verteks x terdefinisi Vx sebagai himpunan dari verteks-verteks yang adjacent dari x. Secara formal: </p>
+<blockquote>
+<p>Vx = {y | (x,y) -&gt; E}</p>
+</blockquote>
+<h3 id="apa-manfaat-dari-graph">Apa manfaat dari graph ?</h3>
+<p>Tiap-tiap diagram memuat sekumpulan obyek (kotak, titik, dan lain-lain) beserta garis-garis yang menghubungkan obyek-obyek tersebut. Garis bisa berarah ataupun tidak berarah. </p>
+<ul>
+<li>Garis yang berarah biasanya digunakan untuk menyatakan hubungan yang mementingkan urutan antar objek-objek. Urut-urutan objek akan mempunyai arti yang lain jika arah garis diubah. Sebagai contoh adalah garis komando yang menghubungkan titik-titik struktur sebuah organisasi. </li>
+<li>Sebaliknya, garis yang tidak berarah digunakan untuk menyatakan hubungan antar objek-objek yang tidak mementingkan urutan. Sebagai contoh adalah garis untuk menyatakan jarak hubung 2 kota pada Gambar 2. Jarak dari kota A ke kota B sejauh 200 km akan sama dengan jarak dari kota B ke kota A. Apabila jarak 2 tempat tidak sama jika dibalik (misalnya karena harus melalui jalan memutar), maka garis yang digunakan haruslah garis yang berarah.</li>
+</ul>
+<h3 id="apa-yang-akan-dilakukan_1">Apa yang akan dilakukan ?</h3>
+<h4 id="install-library-yang-digunakan_1">Install library yang digunakan</h4>
+<pre><code class="python">import matplotlib.pyplot as plt
+import networkx as nx
+</code></pre>
+
+<p><code>matplotlib</code> digunakan untuk dapat memvisualisasikan <em>graph</em>, sedangkan <code>networkx</code> digunakan untuk dapat mengakses atau membangun <em>graph</em>.</p>
+<h4 id="menentukan-node-dan-edge">Menentukan node dan edge</h4>
+<p><strong>Node</strong> merupakan kumpulan dari <em>link</em> yang telah diperoleh dari hasil crawling, sedangkan <strong>Edge</strong> merupakan hubungan antar <em>link</em> atau <em>link</em> yang saling berkaitan. Oleh karena itu, saat melakukan crawling alangkah lebih baiknya jika menginisialisasi <strong>Node</strong>  dan <strong>Edge</strong> secara bersamaan.</p>
+<pre><code class="python"> url = listUrl[nav]
+ req = requests.get(url)
+ soup = BeautifulSoup(req.text, 'html.parser')
+ news_links = soup.find_all('a',{'class':'ellipsis3'}, href=True)
+ node_A = node.index(url)
+ for link in news_links:
+     listUrl.append(link['href'])
+     if link['href'] not in node :
+         node.append(link['href'])
+     node_B = node.index(link['href'])
+     value = (str(node_A),str(node_B))
+     edge.append(value)
+</code></pre>
+
+<p>Saat mengunjungi sebuah artikel, <em>link</em> dari artikel tersebut akan di tambahkan ke dalam list node <code>node.append(link['href'])</code>, setelah itu <em>link</em> dari artikel <code>node_A = node.index(url)</code> dan <em>link</em> terkait <code>node_B = node.index(link['href'])</code>  di inisialisasi dan ditambakan pada list edge,</p>
+<pre><code class="python">value = (str(node_A),str(node_B))
+edge.append(value)
+</code></pre>
+
+<p>Sehingga keseluruhan code untuk proses <em>crawling</em> dan inisialisasi <strong>Node</strong> dan <strong>Edge</strong> diperoleh :</p>
+<pre><code class="python">import my_function as func
+import requests
+from bs4 import BeautifulSoup
+
+def getLinks():
+
+    url = &quot;https://www.suara.com/news/2019/05/22/190121/kapolres-jakpus-minta-polisi-bertahan-pendemo-22-mei-terus-lempar-batu&quot;
+    listUrl.append(url)
+    listUrl.append(&quot;depth&quot;)
+    node.append(url)
+
+    count_depth = 3
+    depth = 1
+    nav = 0
+
+    cek = True
+    while cek == True :
+        if listUrl[nav] == &quot;depth&quot; :
+            listUrl.append(&quot;depth&quot;)
+            depth+=1
+            nav+=1
+
+        if depth &gt; count_depth:
+            cek = False
+
+        else :
+            url = listUrl[nav]
+            req = requests.get(url)
+            soup = BeautifulSoup(req.text, 'html.parser')
+            news_links = soup.find_all('a',{'class':'ellipsis3'}, href=True)
+            node_A = node.index(url)
+            for link in news_links:
+                listUrl.append(link['href'])
+                if link['href'] not in node :
+                    node.append(link['href'])
+                node_B = node.index(link['href'])
+                value = (str(node_A),str(node_B))
+                edge.append(value)
+            nav+=1
+
+if __name__== &quot;__main__&quot;:
+    listUrl = []
+    node = []
+    edge = []
+
+    links = getLinks()
+
+    func.save_list(&quot;node&quot;,node)
+    func.save_list(&quot;edge&quot;,edge)
+    func.save_list(&quot;listUrl&quot;,listUrl)
+</code></pre>
+
+<blockquote>
+<p>Untuk <code>import my_function as func</code> digunakan untuk menyimpan hasil dari proses diatas. <em>Function</em> ini telah dibahas pada postingan sebelumnya, code nya juga tersedia pada postingan sebelumnya.
+</p>
+</blockquote>
+<ul>
+<li>Gambar di bawah merupakan himpunan dari <strong>Node</strong> atau <em>link</em> hasil <em>crawling</em>.</li>
+</ul>
+<p><img alt="1558540865229" src="../images/1558540865229.png" /></p>
+<ul>
+<li>Gambar di bawah merupakan <strong>Edge</strong> atau keterkaitan antar <em>link</em>  dari hasil <em>crawling</em>.</li>
+<li>Node pada <strong>Edge</strong> dipresentasikan dengan indeks dari <em>list</em> <strong>Node</strong>, hal ini bertujuan sebagai pengganti label, sehingga diperoleh hasil seperti gambar dibawah ini :</li>
+</ul>
+<p><img alt="1558540882369" src="../images/1558540882369.png" /></p>
+<h4 id="membangun-graph">Membangun graph</h4>
+<p>Setelah <strong>Node</strong> dan <strong>Edge</strong> sudah diinisialisasi, gunakan <em>library</em> <code>networkx</code> untuk membuat node dan edge pada <em>graph</em>. Kemudian gunakan <code>nx.draw_circular</code> untuk menvisualisasi kan.</p>
+<pre><code class="python">G=nx.DiGraph()
+# a list of nodes:
+pages = []
+for i in range(0,len(node)):
+    pages.append(str(i))
+
+G.add_nodes_from(pages)
+G.add_edges_from(edge)
+
+nx.draw_circular(G,node_color='red', with_labels = True)
+</code></pre>
+
+<p>Gunakan <em>library</em> <code>matplotlib</code> untuk menyimpan dan menampilkan hasil <em>graph</em>.</p>
+<pre><code class="python">nx.draw_circular(G,node_color='red', with_labels = True)
+plt.show() # display
+plt.savefig(&quot;path.png&quot;)
+</code></pre>
+
+<h4 id="full-code_1">Full Code</h4>
+<pre><code class="python">import matplotlib.pyplot as plt
+import networkx as nx
+import numpy as np
+import my_function as func
+
+if __name__== &quot;__main__&quot;:
+
+    node = func.load_list(&quot;node&quot;)
+    edge = func.load_list(&quot;edge&quot;)
+
+    G=nx.DiGraph()
+    # a list of nodes:
+    pages = []
+    for i in range(0,len(node)):
+        pages.append(str(i))
+
+    G.add_nodes_from(pages)
+    G.add_edges_from(edge)
+
+    print(&quot;Nodes of graph: &quot;)
+    print(G.nodes())
+    print(&quot;Edges of graph: &quot;)
+    print(G.edges())
+
+    print(&quot;Number of outward links for each node:&quot;)
+    for page in pages:
+        print([&quot;Page %s = %s&quot;% (page,str(len(G.out_edges(page))))])
+
+#    nx.draw(G, with_labels = True)
+#    plt.show() # display
+
+    nx.draw_circular(G,node_color='red', with_labels = True)
+    plt.show() # display
+    plt.savefig(&quot;path.png&quot;)
+</code></pre>
+
+<h4 id="hasil_1">Hasil</h4>
+<p><img alt="1558540902300" src="../images/1558540902300.png" /></p>
+<h2 id="step-3-page-rank">Step 3. Page Rank</h2>
+<h3 id="apa-itu-page-rank">Apa itu page rank ?</h3>
+<p>Kata Pagerank berasal dari salah satu istilah para pengguna blog di dalam sistem yang dibuat mesin pencari untuk menilai dan memberikan peringkat pagerank kepada suatu situs. Mesin pencari yang memberikan pagerank kepada suatu situs ini adalah Mesin Pencari Google. </p>
+<p>Pagerank juga merupakan suatu algoritma yang bertujuan untuk menentukan kepopuleran salah satu situs. Pagerank merupakan salah satu layanan yang disediakan oleh Google. Pagerank disediakan oleh Mesin Pencari Google dan dibuat oleh salah satu ceo dan pendiri google yaitu <strong>Sergey Brin Dan Larry Page</strong>.</p>
+<h3 id="apa-manfaat-dari-page-rank">Apa manfaat dari page rank ?</h3>
+<p>Fungsi utama dari pagerank yaitu menganalisis berbagai link yang masuk (<em>backlink</em>) kemudian akan dihitung berapa jumlah link yang masuk (<em>Inbound</em>) dan link yang keluar (<em>Outbound</em>) dari sebuah halaman web tersebut, yang kemudian akan menghasilkan pagerank yang kita dapatkan.</p>
+<p>Pagerank juga berfungsi menentukan situs web mana yang lebih penting atau populer mulai dari skala yang paling tinggi 10 hingga skala yang paling rendah yaitu 0. Semakin tinggi pagerank yang dimiliki sebuah halaman web maka semakin populer halaman web tersebut, karena dengan pagerank yang tinggi yang milikinya itu berarti bahwa situs web tersebut banyak ditautkan oleh situs web lain.</p>
+<h3 id="apa-yang-akan-dilakukan_2">Apa yang akan dilakukan ?</h3>
+<h4 id="menentukan-page-rank">Menentukan page rank</h4>
+<pre><code class="python">PR = nx.pagerank(G)
+value = max(PR, key=PR.get)
+print(PR)
+print(&quot;The most important node is &quot; + value)
+print(&quot;The most important link is &quot; + node[int(value)])
+</code></pre>
+
+<p>Untuk menentukan page rank dapat menggunakan <em>library</em> yang tersedia yakni <code>nx.pagerank(G)</code>. Dimana secara <em>default</em>,</p>
+<pre><code class="python">pagerank(G, alpha=0.85, personalization=None, max_iter=100, tol=1e-06, nstart=None, weight='weight', dangling=None)
+</code></pre>
+
+<ul>
+<li><strong>G</strong> (<em>graph</em>) </li>
+<li><strong>alpha</strong> – Damping parameter for PageRank, default=0.85.</li>
+<li><strong>personalization</strong> – The “personalization vector” consisting of a dictionary with a key for every graph node and nonzero personalization value for each node. By default, a uniform distribution is used.</li>
+<li><strong>max_iter</strong> – Maximum number of iterations in power method eigenvalue solver.</li>
+<li><strong>tol</strong> – Error tolerance used to check convergence in power method solver.</li>
+<li><strong>nstart</strong> – Starting value of PageRank iteration for each node.</li>
+<li><strong>weight</strong> – Edge data key to use as weight. If None weights are set to 1.</li>
+<li><strong>dangling</strong>  – The outedges to be assigned to any “dangling” nodes, i.e., nodes without any outedges. The dict key is the node the outedge points to and the dict value is the weight of that outedge. By default, dangling nodes are given outedges according to the personalization vector (uniform if not specified). This must be selected to result in an irreducible transition matrix (see notes under google_matrix). It may be common to have the dangling dict to be the same as the personalization dict.</li>
+</ul>
+<h4 id="full-code_2">Full Code</h4>
+<pre><code class="python">import matplotlib.pyplot as plt
+import networkx as nx
+import numpy as np
+import my_function as func
+
+if __name__== &quot;__main__&quot;:
+
+    node = func.load_list(&quot;node&quot;)
+    edge = func.load_list(&quot;edge&quot;)
+
+    G=nx.DiGraph()
+    # a list of nodes:
+    pages = []
+    for i in range(0,len(node)):
+        pages.append(str(i))
+
+    G.add_nodes_from(pages)
+    G.add_edges_from(edge)
+
+    print(&quot;Nodes of graph: &quot;)
+    print(G.nodes())
+    print(&quot;Edges of graph: &quot;)
+    print(G.edges())
+
+    print(&quot;Number of outward links for each node:&quot;)
+    for page in pages:
+        print([&quot;Page %s = %s&quot;% (page,str(len(G.out_edges(page))))])
+
+    image = nx.draw_circular(G,node_color='red', with_labels = True)
+
+    PR = nx.pagerank(G)
+    value = max(PR, key=PR.get)
+    print(PR)
+    print(&quot;The most important node is &quot; + value)
+    print(&quot;The most important link is &quot; + node[int(value)])
+</code></pre>
+
+<h4 id="hasil_2">Hasil</h4>
+<pre><code>{'0': 0.010786569775923953, '1': 0.07877510607400716, '2': 0.08429369074060056, '3': 0.07809532275240762, '4': 0.0832487848846966, '5': 0.07877510607400716, '6': 0.09362252732892531, '7': 0.05898444024971937, '8': 0.04722108385186022, '9': 0.05449031715893964, '10': 0.059246340407318104, '11': 0.053614561859208744, '12': 0.04898793734885993, '13': 0.07513404487029707, '14': 0.030085143833367904, '15': 0.01869154414248863, '16': 0.01869154414248863, '17': 0.013627967252441656, '18': 0.013627967252441656}
+</code></pre>
+
+<p>Diperoleh pagerank dari masing-masing <em>link</em> seperti diatas. Sehingga, yang memiliki nilai maksimum merupakan node yang paling penting.</p>
+<pre><code class="python">The most important node is 6
+</code></pre>
+
+<p>Dan node dengan label 6 merupakan <em>link</em> dari :</p>
+<pre><code class="python">https://www.suara.com/news/2019/05/22/200031/fadli-zon-orasi-di-aksi-22-mei-jangan-sampai-meninggal-dunia
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Pada artikel kali ini, diperoleh nilai <em>pagerank</em> dari masing-masing <em>link</em> yang didapat pada proses <em>crawling</em>, nilai <em>pagerank</em> digunakan untuk mengetahui artikel mana yang paling banyak diakses.</p>
+<p><strong><em>Full Code</em></strong> bisa didownload di sini <a href="https://150411100016.github.io/PageRank-of-Graph-in-Web-Crawling/">disini</a>.</p>
+<h2 id="references">References</h2>
+<p><a href="http://skipperkongen.dk/2016/08/16/how-to-compute-the-pagerank-of-almost-anything/">http://skipperkongen.dk/2016/08/16/how-to-compute-the-pagerank-of-almost-anything/</a></p>
+<p><a href="https://networkx.github.io/documentation/networkx-1.7/reference/generated/networkx.algorithms.link_analysis.pagerank_alg.pagerank.html">https://networkx.github.io/documentation/networkx-1.7/reference/generated/networkx.algorithms.link_analysis.pagerank_alg.pagerank.html</a></p>
+<p><a href="http://t4urusboy08.blogspot.com/">http://t4urusboy08.blogspot.com/</a></p>
+<p><a href="http://ovieciinduts.blogspot.com/2012/01/teori-graf.html">http://ovieciinduts.blogspot.com/2012/01/teori-graf.html</a></p>
+<p><a href="https://rahman371.wordpress.com/2014/10/10/apa-itu-pagerank/">https://rahman371.wordpress.com/2014/10/10/apa-itu-pagerank/</a></p>
+<p><a href="https://www.caramanual.com/2017/01/apa-itu-pagerank-inilah-pengertian-dan.html">https://www.caramanual.com/2017/01/apa-itu-pagerank-inilah-pengertian-dan.html</a></p></article></div></div></main><footer class="md-footer"><div class="md-footer-nav"><nav class="md-footer-nav__inner md-grid"><a href="../clustering/" title="Clustering" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev"><div class="md-flex__cell md-flex__cell--shrink"><i class="md-icon md-icon--arrow-back md-footer-nav__button"></i></div><div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span class="md-flex__ellipsis"><span class="md-footer-nav__direction">Previous</span>Clustering</span></div></a></nav></div><div class="md-footer-meta md-typeset"><div class="md-footer-meta__inner md-grid"><div class="md-footer-copyright">powered by <a href="https://www.mkdocs.org">MkDocs</a> and <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a></div></div></div></footer></div><script src="../assets/javascripts/application.b260a35d.js"></script><script>app.initialize({version:"1.0.4",url:{base:".."}})</script></body></html>
